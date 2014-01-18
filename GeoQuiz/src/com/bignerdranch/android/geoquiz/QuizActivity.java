@@ -24,7 +24,7 @@ public class QuizActivity extends Activity {
 	private ImageButton mPrevButton;
 	private Button mCheatButton;
 	private TextView mQuestionTextView;
-//	private SparseBooleanArray checkCheated = new SparseBooleanArray();
+	private SparseBooleanArray checkCheated = new SparseBooleanArray();
 	
 	private TrueFalse[] mQuestionBank = new TrueFalse[] {
 			new TrueFalse(R.string.question_oceans, true),
@@ -67,6 +67,8 @@ public class QuizActivity extends Activity {
 			return;
 		}
 		mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+		//mark question as cheated in sparseArray
+		checkCheated.put(mCurrentIndex, mIsCheater);
 	}
 	
     @Override
@@ -75,12 +77,12 @@ public class QuizActivity extends Activity {
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_quiz);
         
-//        //mark all questions as false for cheating initially
-//        checkCheated.put(0, false);
-//        checkCheated.put(1, false);
-//        checkCheated.put(2, false);
-//        checkCheated.put(3, false);
-//        checkCheated.put(4, false);
+        //mark all questions as false for cheating initially
+        checkCheated.put(0, false);
+        checkCheated.put(1, false);
+        checkCheated.put(2, false);
+        checkCheated.put(3, false);
+        checkCheated.put(4, false);
         
         mQuestionTextView = (TextView)findViewById(R.id.question_text_view);
         mQuestionTextView.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +90,7 @@ public class QuizActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-				mIsCheater = false;
+				mIsCheater = checkCheated.get(mCurrentIndex);
 				updateQuestion();
 			}
 		});
@@ -118,7 +120,7 @@ public class QuizActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-				mIsCheater = false;
+				mIsCheater = checkCheated.get(mCurrentIndex);
 				updateQuestion();
 			}
 		});
@@ -132,7 +134,7 @@ public class QuizActivity extends Activity {
 				if (mCurrentIndex < 0) {
 					mCurrentIndex = mQuestionBank.length - 1;
 				}
-				mIsCheater = false;
+				mIsCheater = checkCheated.get(mCurrentIndex);
 				updateQuestion();
 			}
 		});
