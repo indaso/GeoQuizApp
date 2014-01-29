@@ -1,7 +1,10 @@
 package com.bignerdranch.android.geoquiz;
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -24,6 +27,7 @@ public class QuizActivity extends Activity {
 	private ImageButton mPrevButton;
 	private Button mCheatButton;
 	private TextView mQuestionTextView;
+	private TextView mAPITextView;
 	private SparseBooleanArray checkCheated = new SparseBooleanArray();
 	
 	private TrueFalse[] mQuestionBank = new TrueFalse[] {
@@ -32,6 +36,11 @@ public class QuizActivity extends Activity {
 			new TrueFalse(R.string.question_africa, false),
 			new TrueFalse(R.string.question_americas, true),
 			new TrueFalse(R.string.question_asia, true),
+			new TrueFalse(R.string.question_africa2, true),
+			new TrueFalse(R.string.question_americas2, true),
+			new TrueFalse(R.string.question_spain, true),
+			new TrueFalse(R.string.question_continent, false),
+			new TrueFalse(R.string.question_pole, false)
 	};
 	
 	private int mCurrentIndex = 0;
@@ -71,18 +80,25 @@ public class QuizActivity extends Activity {
 		checkCheated.put(mCurrentIndex, mIsCheater);
 	}
 	
+	@TargetApi(11)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_quiz);
         
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			ActionBar actionBar = getActionBar();
+			actionBar.setSubtitle("Bodies of Water");
+		}
+		
+		mAPITextView = (TextView)findViewById(R.id.api_level);
+		mAPITextView.setText("API level " + Build.VERSION.SDK_INT);
+        
         //mark all questions as false for cheating initially
-        checkCheated.put(0, false);
-        checkCheated.put(1, false);
-        checkCheated.put(2, false);
-        checkCheated.put(3, false);
-        checkCheated.put(4, false);
+		for (int i = 0; i < mQuestionBank.length; i++) {
+			checkCheated.put(i, false);
+		}
         
         mQuestionTextView = (TextView)findViewById(R.id.question_text_view);
         mQuestionTextView.setOnClickListener(new View.OnClickListener() {

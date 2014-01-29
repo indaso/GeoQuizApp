@@ -18,9 +18,19 @@
         in the Americas.</string>
     <string name="question_asia">Lake Baikal is the world\'s oldest and deepest
         freshwater lake.</string>
+    <string name="question_africa2">Africa is the second largest continent in the world
+        based on geography and size.</string>
+    <string name="question_americas2">North America is the largest continent in the world
+         based on highest population and largest size.</string>
+    <string name="question_spain">Spain and Portugal are found on the 
+        Iberian Peninsula in Europe.</string>
+    <string name="question_continent">The three countries with the largest land
+         area in the world are Russia, Canada, and the United States.</string>
+    <string name="question_pole">The North Pole is not located on a continent.</string>
     <string name="cheat_button">Cheat!</string>
     <string name="warning_text">Are you sure you want to do this?</string>
     <string name="show_answer_button">Show Answer</string>
     <string name="judgment_toast">Cheating is wrong.</string>
+    <string name="api_level"></string>
 
 </resources>

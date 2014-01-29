@@ -28,6 +28,13 @@
             android:text="@string/false_button" />
     </LinearLayout>
     
+    <TextView
+        android:id="@+id/api_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="12dp" />
+    
 
     <Button 
         android:id="@+id/cheat_button"
@@ -54,5 +61,6 @@
         android:contentDescription="@string/next_button"
         />
     
+
     
 </FrameLayout>
